@@ -25,44 +25,54 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
+const checkUniqueId = (min, max) => {
+  const previousValues = [];
+  return function () {
+    let currentValue = getRandomInteger(min, max);
+    if (previousValues.length >= (max - min + 1)) {
+      console.error(`Перебраны все числа из диапазона от ${min} до ${max}`);
+      return null;
+    }
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+};
+
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+const randomUrl = getRandomInteger(1, 25);
+const randomLikes = getRandomInteger(15, 200);
+const randomId = checkUniqueId(1, 25);
+
 
 const createPhotoDescription = () => {
-  const randomId = getRandomInteger(1, 25);
-  const randomUrl = getRandomInteger(1, 25);
-  const randomLikes = getRandomInteger(15, 200);
-  const randomAvatar = getRandomInteger(1, 6);
-  const randomIdComments = getRandomInteger(0, 30);
+  const randomCountComments = getRandomInteger(0, 30);
+  const generatedComments = () => {
+    const generatedIdComments = checkUniqueId(0, 30);
+    const arrayComments = [];
+    for (let i = 0; i <= randomCountComments; i++) {
+      const comment = {
+        id: generatedIdComments(),
+        avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+        message: getRandomArrayElement(TEXT_COMMENTS),
+        name: getRandomArrayElement(NAMES_COMMENTATORS)
+      };
+      arrayComments.push(comment);
+    }
+    return arrayComments;
+  };
 
   return {
-    id: randomId,
+    id: randomId(),
     url: `photos/${randomUrl}.jpg`,
     description: 'Просто красивая фотография',
     likes: randomLikes,
-    comments: [
-      {
-        id: randomIdComments,
-        avatar: `img/avatar-${randomAvatar}.svg`,
-        message: getRandomArrayElement(TEXT_COMMENTS),
-        name: getRandomArrayElement(NAMES_COMMENTATORS)
-      },
-      {
-        id: randomIdComments,
-        avatar: `img/avatar-${randomAvatar}.svg`,
-        message: getRandomArrayElement(TEXT_COMMENTS),
-        name: getRandomArrayElement(NAMES_COMMENTATORS)
-      },
-      {
-        id: randomIdComments,
-        avatar: `img/avatar-${randomAvatar}.svg`,
-        message: getRandomArrayElement(TEXT_COMMENTS),
-        name: getRandomArrayElement(NAMES_COMMENTATORS)
-      },
-    ]
+    comments: generatedComments()
   };
 };
 
 const similarPhotoDescription = Array.from({ length: 25 }, createPhotoDescription);
 
-similarPhotoDescription();
-
+console.log(similarPhotoDescription);
