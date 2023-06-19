@@ -30,7 +30,6 @@ const checkUniqueId = (min, max) => {
   return function () {
     let currentValue = getRandomInteger(min, max);
     if (previousValues.length >= (max - min + 1)) {
-      console.error(`Перебраны все числа из диапазона от ${min} до ${max}`);
       return null;
     }
     while (previousValues.includes(currentValue)) {
@@ -73,6 +72,8 @@ const createPhotoDescription = () => {
   };
 };
 
-const similarPhotoDescription = Array.from({ length: 25 }, createPhotoDescription);
+const similarPhotoDescription = () => {
+  Array.from({ length: 25 }, createPhotoDescription);
+};
 
-console.log(similarPhotoDescription);
+similarPhotoDescription();
