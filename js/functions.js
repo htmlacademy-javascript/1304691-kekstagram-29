@@ -36,11 +36,13 @@ const getNumber = (string) => {
 getNumber('1 кефир, 0.5 батона');
 getNumber(20223);
 
+const HOUR_IN_MINUTES = 60;
+
 const parseTime = (timeString) => {
-  const TimeArray = timeString.split(':');
-  const hour = TimeArray[0];
-  const minute = TimeArray[1];
-  return hour * 60 + Number(minute);
+  const timeArray = timeString.split(':');
+  const hour = timeArray[0];
+  const minute = timeArray[1];
+  return hour * HOUR_IN_MINUTES + Number(minute);
 };
 
 const checkMeeting = (startWork, finishWork, startMeet, durationMeet) => {
