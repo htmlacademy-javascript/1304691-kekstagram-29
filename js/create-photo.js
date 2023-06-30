@@ -22,10 +22,10 @@ const TEXT_COMMENTS = [
 ];
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-const randomLikes = getRandomInteger(15, 200);
-const randomId = checkUniqueId(1, 25);
 
 const createPhotoDescription = () => {
+  const randomLikes = getRandomInteger(15, 200);
+  const randomId = checkUniqueId(1, 25);
   const randomUrl = getRandomInteger(1, 25);
   const randomCountComments = getRandomInteger(0, 30);
 
@@ -51,6 +51,7 @@ const createPhotoDescription = () => {
     url: `photos/${randomUrl}.jpg`,
     description: 'Просто красивая фотография',
     likes: randomLikes,
+    'comments count': randomCountComments,
     comments: generatedComments()
   };
 };
