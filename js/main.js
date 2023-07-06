@@ -1,4 +1,5 @@
-import { similarPhotoDescription } from './create-photo.js';
+import { getPictures } from './data.js';
+import { renderPictures } from './picture.js';
 
-similarPhotoDescription();
+renderPictures(getPictures());
 
