@@ -1,4 +1,4 @@
-import { getRandomInteger } from './util.js';
+import { getRandomInteger, getRandomArrayElement, createIdGenerator } from './util.js';
 
 const PICTURE_COUNT = 25;
 const AVATAR_COUNT = 6;
@@ -39,15 +39,15 @@ const DESCRIPTIONS = [
   'Жизнь — это всего лишь серия крошечных чудес, поэтому обратите внимание на них.'
 ];
 
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
 const createMessage = () => Array.from(
   { length: getRandomInteger(1, 2) },
   () => getRandomArrayElement(TEXT_COMMENTS),
 ).join(' ');
 
-const createComment = (index) => ({
-  id: index,
+const generateCommentId = createIdGenerator();
+
+const createComment = () => ({
+  id: generateCommentId(),
   avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
   message: createMessage(),
   name: getRandomArrayElement(NAMES_COMMENTATORS)
@@ -60,7 +60,7 @@ const createPicture = (index) => ({
   likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
   comments: Array.from(
     { length: getRandomInteger(0, COMMENT_COUNT) },
-    (_, commentIndex) => createComment(commentIndex),
+    createComment,
   ),
 });
 
