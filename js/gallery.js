@@ -2,10 +2,10 @@
 import { renderPictures } from './create-picture.js';
 import { openFullPicture } from './full-picture.js';
 
-const pictureContainer = document.querySelector('.pictures');
+const pictureContainerNode = document.querySelector('.pictures');
 
 const renderPicturesGallery = (pictures) => {
-  pictureContainer.addEventListener('click', (evt) => {
+  pictureContainerNode.addEventListener('click', (evt) => {
     const picture = evt.target.closest('[data-picture-id]');
     if (!picture) {
       return;
