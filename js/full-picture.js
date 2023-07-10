@@ -12,6 +12,11 @@ const commentsShownCountNode = fullPictureNode.querySelector('.social__comment-c
 let commentsShown = 0;
 let commentsArray = [];
 
+const getCommentsShownInterpolation = () => `
+  ${commentsShown} из
+  <span class="comments-count">${commentsArray.length} комментариев</span>
+  `;
+
 const renderDataOnfullPicture = ({ url, description, likes }) => {
   fullPictureNode.querySelector('.big-picture__img img').src = url;
   fullPictureNode.querySelector('.big-picture__img img').alt = description;
@@ -47,7 +52,7 @@ const renderComments = () => {
 
   commentsContainerNode.innerHTML = '';
   commentsContainerNode.append(commentFragment);
-  commentsShownCountNode.innerHTML = `${commentsShown} из <span class="comments-count">${commentsArray.length} комментариев</span>`;
+  commentsShownCountNode.innerHTML = getCommentsShownInterpolation();
 };
 
 const openFullPicture = (data) => {
@@ -62,7 +67,7 @@ const openFullPicture = (data) => {
   } else {
     commentsContainerNode.innerHTML = '';
     commentsLoaderButtonNode.classList.add('hidden');
-    commentsShownCountNode.innerHTML = `${commentsShown} из <span class="comments-count">${commentsArray.length} комментариев</span>`;
+    commentsShownCountNode.innerHTML = getCommentsShownInterpolation();
   }
 };
 
