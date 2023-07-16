@@ -1408,3 +1408,40 @@ main {
 .hidden {
   display: none;
 }
+
+.text__hashtags {
+  position: relative;
+  z-index: 4;
+}
+
+.text-help {
+  padding: 5px 10px;
+  position: absolute;
+  top: 100%;
+  box-sizing: border-box;
+  width: 430px;
+  left: 80px;
+  text-transform: none;
+  font-size: 12px;
+  text-align: left;
+  border-radius: 0 0 5px 5px;
+  z-index: 3;
+  background-color: palevioletred;
+}
+
+.img-upload__field-wrapper {
+  position: relative;
+}
+
+.img-uploadfield-wrapper .textdescription {
+  position: relative;
+  z-index: 2;
+}
+
+.text__hashtags {
+  margin-bottom: 0;
+}
+
+div.img-upload__field-wrapper:nth-child(2) {
+  margin-top: 20px;
+}
