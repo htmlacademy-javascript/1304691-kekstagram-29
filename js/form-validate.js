@@ -3,10 +3,13 @@ import { isEscapeKey } from './util.js';
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_COMMENT_LENGTH = 140;
 const MAX_HASHTAG_AMOUNT = 5;
-const INVALID_COUNT_SYMBOLS = 'Не более 140 символов';
-const INVALID_COUNT = 'Можно использовать не более пяти хэш-тегов';
-const NOT_UNIQUE = 'Хэш - теги не должны повторяться';
-const INVALID_PATTERN = 'Хэш-теги не соответствуют формату';
+
+const VALIDATION_MESSAGES = {
+  'comment count': 'Не более 140 символов',
+  'hash-tag count': 'Можно использовать не более пяти хэш-тегов',
+  'not unique': 'Хэш - теги не должны повторяться',
+  'invalid pattern': 'Хэш-теги не соответствуют формату'
+};
 
 const formNode = document.querySelector('.img-upload__form');
 const hashtagNode = formNode.querySelector('.text__hashtags');
@@ -49,13 +52,13 @@ const validateHashtagDublicateInput = () => {
   return isHashtagsDuplicate.size === hashtags.length;
 };
 
-const getValidateForm = () => {
+const doValidateForm = () => {
 
-  pristine.addValidator(commentNode, validateCommentInput, INVALID_COUNT_SYMBOLS);
+  pristine.addValidator(commentNode, validateCommentInput, VALIDATION_MESSAGES['comment count']);
 
-  pristine.addValidator(hashtagNode, validateHashtagFormatInput, INVALID_PATTERN, 2, true);
-  pristine.addValidator(hashtagNode, validateHashtagCountInput, INVALID_COUNT, 3, true);
-  pristine.addValidator(hashtagNode, validateHashtagDublicateInput, NOT_UNIQUE, 1, true);
+  pristine.addValidator(hashtagNode, validateHashtagFormatInput, VALIDATION_MESSAGES['invalid pattern'], 2, true);
+  pristine.addValidator(hashtagNode, validateHashtagCountInput, VALIDATION_MESSAGES['hash-tag count'], 3, true);
+  pristine.addValidator(hashtagNode, validateHashtagDublicateInput, VALIDATION_MESSAGES['not unique'], 1, true);
 
   formNode.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -65,7 +68,7 @@ const getValidateForm = () => {
 };
 
 const onInputKeydown = (evt) => {
-  if (isEscapeKey) {
+  if (isEscapeKey(evt)) {
     evt.stopPropagation();
   }
 };
@@ -73,4 +76,4 @@ const onInputKeydown = (evt) => {
 hashtagNode.addEventListener('keydown', onInputKeydown);
 commentNode.addEventListener('keydown', onInputKeydown);
 
-export { getValidateForm, pristineReset };
+export { doValidateForm, pristineReset };

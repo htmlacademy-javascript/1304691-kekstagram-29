@@ -1,5 +1,5 @@
 import { isEscapeKey } from './util.js';
-import { getValidateForm, pristineReset } from './form-validate.js';
+import { doValidateForm, pristineReset } from './form-validate.js';
 
 const formNode = document.querySelector('.img-upload__form');
 const imgUploadRedactorNode = formNode.querySelector('.img-upload__overlay');
@@ -18,7 +18,7 @@ const openUploadForm = () => {
   imgUploadInputNode.addEventListener('change', () => {
     imgUploadRedactorNode.classList.remove('hidden');
     document.addEventListener('keydown', onDocumentKeydown);
-    getValidateForm();
+    doValidateForm();
   });
 };
 
