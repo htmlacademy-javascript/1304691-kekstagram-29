@@ -7,15 +7,13 @@ const pictureContainerNode = document.querySelector('.pictures');
 const renderPicturesGallery = (pictures) => {
   pictureContainerNode.addEventListener('click', (evt) => {
     const picture = evt.target.closest('[data-picture-id]');
-    if (!picture) {
-      return;
+    if (picture) {
+      evt.preventDefault();
+      const currentPicture = pictures.find(
+        (item) => item.id === +picture.dataset.pictureId
+      );
+      openFullPicture(currentPicture);
     }
-
-    evt.preventDefault();
-    const currentPicture = pictures.find(
-      (item) => item.id === +picture.dataset.pictureId
-    );
-    openFullPicture(currentPicture);
   });
   renderPictures(pictures);
 };
