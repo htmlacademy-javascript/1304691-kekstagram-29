@@ -4,11 +4,11 @@ const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_COMMENT_LENGTH = 140;
 const MAX_HASHTAG_AMOUNT = 5;
 
-const VALIDATION_MESSAGES = {
-  'comment count': 'Не более 140 символов',
-  'hash-tag count': 'Можно использовать не более пяти хэш-тегов',
-  'not unique': 'Хэш - теги не должны повторяться',
-  'invalid pattern': 'Хэш-теги не соответствуют формату'
+const ValidationMessages = {
+  INVALID_COUNT_SYMBOLS: 'Не более 140 символов',
+  INVALID_COUNT: 'Можно использовать не более пяти хэш-тегов',
+  NOT_UNIQUE: 'Хэш - теги не должны повторяться',
+  INVALID_PATTERN: 'Хэш-теги не соответствуют формату'
 };
 
 const formNode = document.querySelector('.img-upload__form');
@@ -54,11 +54,11 @@ const validateHashtagDublicateInput = () => {
 
 const doValidateForm = () => {
 
-  pristine.addValidator(commentNode, validateCommentInput, VALIDATION_MESSAGES['comment count']);
+  pristine.addValidator(commentNode, validateCommentInput, ValidationMessages['INVALID_COUNT_SYMBOLS']);
 
-  pristine.addValidator(hashtagNode, validateHashtagFormatInput, VALIDATION_MESSAGES['invalid pattern'], 2, true);
-  pristine.addValidator(hashtagNode, validateHashtagCountInput, VALIDATION_MESSAGES['hash-tag count'], 3, true);
-  pristine.addValidator(hashtagNode, validateHashtagDublicateInput, VALIDATION_MESSAGES['not unique'], 1, true);
+  pristine.addValidator(hashtagNode, validateHashtagFormatInput, ValidationMessages['INVALID_PATTERN'], 2, true);
+  pristine.addValidator(hashtagNode, validateHashtagCountInput, ValidationMessages['INVALID_COUNT'], 3, true);
+  pristine.addValidator(hashtagNode, validateHashtagDublicateInput, ValidationMessages['NOT_UNIQUE'], 1, true);
 
   formNode.addEventListener('submit', (evt) => {
     evt.preventDefault();
