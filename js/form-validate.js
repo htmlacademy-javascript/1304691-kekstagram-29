@@ -24,7 +24,7 @@ const defaultConfig = {
 
 const pristine = new Pristine(formNode, defaultConfig);
 
-const pristineReset = () => pristine.reset();
+const resetPristine = () => pristine.reset();
 
 const validateCommentInput = (value) => value.length <= MAX_COMMENT_LENGTH;
 
@@ -52,7 +52,7 @@ const validateHashtagDublicateInput = () => {
   return isHashtagsDuplicate.size === hashtags.length;
 };
 
-const doValidateForm = () => {
+const initValidateForm = () => {
 
   pristine.addValidator(commentNode, validateCommentInput, ValidationMessages['INVALID_COUNT_SYMBOLS']);
 
@@ -76,4 +76,4 @@ const onInputKeydown = (evt) => {
 hashtagNode.addEventListener('keydown', onInputKeydown);
 commentNode.addEventListener('keydown', onInputKeydown);
 
-export { doValidateForm, pristineReset };
+export { initValidateForm, resetPristine };
