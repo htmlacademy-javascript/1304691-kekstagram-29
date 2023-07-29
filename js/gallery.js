@@ -25,6 +25,7 @@ const removePictures = () => {
 const getRandomPictures = (pictures) => {
   const getRandomPictureId = createUniqueRandomIdGenerator(0, pictures.length - 1);
   const currentPictures = [];
+
   for (let i = 0; i < COUNT_RANDOM_PICTURES; i++) {
     currentPictures.push(pictures[getRandomPictureId()]);
   }
@@ -48,14 +49,21 @@ const getDefaultPictures = (pictures) => {
   renderPictures(pictures);
 };
 
-const renderPicturesGallery = (pictures) => {
+const onFilter = (handler) => (data) => debounce(handler(data));
 
+const onFilterRandomClick = (pictures) => onFilter(getRandomPictures(pictures));
+
+const onFilterDiscussedClick = (pictures) => onFilter(getDiscussedPictures(pictures));
+
+const onFilterDefaultClick = (pictures) => onFilter(getDefaultPictures(pictures));
+
+const renderPicturesGallery = (pictures) => {
   filtersNode.classList.remove('img-filters--inactive');
   addActiveClassFilter();
 
-  document.querySelector('#filter-random').addEventListener('click', () => debounce(getRandomPictures(pictures)));
-  document.querySelector('#filter-discussed').addEventListener('click', () => debounce(getDiscussedPictures(pictures)));
-  document.querySelector('#filter-default').addEventListener('click', () => debounce(getDefaultPictures(pictures)));
+  document.querySelector('#filter-random').addEventListener('click', () => onFilterRandomClick(pictures));
+  document.querySelector('#filter-discussed').addEventListener('click', () => onFilterDiscussedClick(pictures));
+  document.querySelector('#filter-default').addEventListener('click', () => onFilterDefaultClick(pictures));
 
   pictureContainerNode.addEventListener('click', (evt) => {
     const picture = evt.target.closest('[data-picture-id]');
@@ -67,6 +75,7 @@ const renderPicturesGallery = (pictures) => {
       openFullPicture(currentPicture);
     }
   });
+
   renderPictures(pictures);
 };
 
