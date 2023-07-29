@@ -1,6 +1,12 @@
 import { isEscapeKey } from './util.js';
 
 let activeAlertType = null;
+let onEscapeKeydown = null;
+
+const Alerts = {
+  success: createAlert('success'),
+  error: createAlert('error')
+};
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -15,11 +21,6 @@ const onOuterBodyClick = (evt) => {
   }
 };
 
-const Alerts = {
-  SUCCESS: createAlert('success'),
-  ERROR: createAlert('error')
-};
-
 const openAlert = (type) => {
   activeAlertType = type;
   document.addEventListener('click', onOuterBodyClick);
@@ -32,6 +33,7 @@ function closeActiveAlert() {
   activeAlertType = null;
   document.removeEventListener('click', onOuterBodyClick);
   document.removeEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', onEscapeKeydown);
 }
 
 function createAlert(type) {
@@ -44,7 +46,10 @@ function createAlert(type) {
 }
 
 const openSuccessAlert = () => openAlert('success');
-const openErrorAlert = () => openAlert('error');
+const openErrorAlert = (handler) => {
+  onEscapeKeydown = handler;
+  openAlert('error');
+};
 
 export { openSuccessAlert, openErrorAlert };
 

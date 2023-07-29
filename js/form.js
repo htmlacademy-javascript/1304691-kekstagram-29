@@ -38,7 +38,7 @@ const open = () => {
     imgUploadRedactorNode.classList.remove('hidden');
     document.body.classList.add('modal-open');
     document.addEventListener('keydown', onDocumentKeydown);
-    initValidateForm(close);
+    initValidateForm(close, onDocumentKeydown);
   });
 };
 

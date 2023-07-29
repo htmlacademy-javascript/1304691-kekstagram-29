@@ -109,7 +109,7 @@ const createSlider = ({ range, step }) => {
       'min': range.min,
       'max': range.max
     },
-    start: 0,
+    start: range.max,
     step,
     connect: 'lower',
   });
