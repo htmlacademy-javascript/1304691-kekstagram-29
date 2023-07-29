@@ -5,18 +5,23 @@ const getRandomInteger = (min, max) => {
   return Math.floor(result);
 };
 
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+const createUniqueRandomIdGenerator = (min, max) => {
+  const generatedValues = [];
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
-
-const createIdGenerator = () => {
-  let lastGeneratedId = 0;
-
-  return () => {
-    lastGeneratedId += 1;
-    return lastGeneratedId;
+  return function () {
+    let currentValue = getRandomInteger(min, max);
+    if (generatedValues.length >= (max - min + 1)) {
+      throw new Error(`Перебраны все числа из диапазона от ${min} до ${max}`);
+    }
+    while (generatedValues.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
+    }
+    generatedValues.push(currentValue);
+    return currentValue;
   };
 };
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const openErrorAlert = (message) => {
   const alertContainerNode = document.createElement('div');
@@ -31,4 +36,22 @@ const openErrorAlert = (message) => {
   setTimeout(() => alertContainerNode.remove(), 5000);
 };
 
-export { getRandomInteger, getRandomArrayElement, isEscapeKey, createIdGenerator, openErrorAlert };
+const debounce = (callback, timeoutDelay = 500) => {
+  // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
+  // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
+  let timeoutId;
+
+  return (...rest) => {
+    // Перед каждым новым вызовом удаляем предыдущий таймаут,
+    // чтобы они не накапливались
+    clearTimeout(timeoutId);
+
+    // Затем устанавливаем новый таймаут с вызовом колбэка на ту же задержку
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+
+    // Таким образом цикл «поставить таймаут - удалить таймаут» будет выполняться,
+    // пока действие совершается чаще, чем переданная задержка timeoutDelay
+  };
+};
+
+export { createUniqueRandomIdGenerator, isEscapeKey, openErrorAlert, debounce };
