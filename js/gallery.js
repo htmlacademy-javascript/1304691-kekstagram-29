@@ -25,6 +25,7 @@ const removePictures = () => {
 const getRandomPictures = (pictures) => {
   const getRandomPictureId = createUniqueRandomIdGenerator(0, pictures.length - 1);
   const currentPictures = [];
+
   for (let i = 0; i < COUNT_RANDOM_PICTURES; i++) {
     currentPictures.push(pictures[getRandomPictureId()]);
   }
@@ -51,11 +52,12 @@ const getDefaultPictures = (pictures) => {
 const onFilter = (handler) => (data) => debounce(handler(data));
 
 const onFilterRandomClick = (pictures) => onFilter(getRandomPictures(pictures));
+
 const onFilterDiscussedClick = (pictures) => onFilter(getDiscussedPictures(pictures));
+
 const onFilterDefaultClick = (pictures) => onFilter(getDefaultPictures(pictures));
 
 const renderPicturesGallery = (pictures) => {
-
   filtersNode.classList.remove('img-filters--inactive');
   addActiveClassFilter();
 
@@ -73,6 +75,7 @@ const renderPicturesGallery = (pictures) => {
       openFullPicture(currentPicture);
     }
   });
+
   renderPictures(pictures);
 };
 

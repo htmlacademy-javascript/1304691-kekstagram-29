@@ -5,12 +5,14 @@ import { openErrorAlert, openSuccessAlert } from './alert.js';
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_COMMENT_LENGTH = 140;
 const MAX_HASHTAG_AMOUNT = 5;
+const MAX_HASHTAG_SYMBOLS = 20;
 
 const ValidationMessages = {
   INVALID_COUNT_SYMBOLS: 'Не более 140 символов',
   INVALID_COUNT: 'Можно использовать не более пяти хэш-тегов',
   NOT_UNIQUE: 'Хэш - теги не должны повторяться',
-  INVALID_PATTERN: 'Хэш-теги не соответствуют формату'
+  INVALID_PATTERN: 'Хэш-теги не соответствуют формату',
+  INVALID_HASHTAG_SYMBOLS: 'Не более 20 символов в одном хэш-теге'
 };
 
 const FormButtonText = {
@@ -44,6 +46,7 @@ const getHashtags = () => hashtagNode.value
 
 const validateHashtagFormatInput = () => {
   const hashtags = getHashtags();
+
   return hashtags.every((value) => HASHTAG_REGEX.test(value));
 };
 
@@ -51,6 +54,12 @@ const validateHashtagCountInput = () => {
   const hashtags = getHashtags();
 
   return hashtags.length <= MAX_HASHTAG_AMOUNT;
+};
+
+const validateHashtagSymbolsInput = () => {
+  const hashtags = getHashtags();
+  return hashtags
+    .every((hashtag) => hashtag.length <= MAX_HASHTAG_SYMBOLS);
 };
 
 const validateHashtagDublicateInput = () => {
@@ -71,16 +80,14 @@ const unblockFormButton = () => {
 };
 
 const init = (onSuccess, onDocumentKeydown) => {
-
   pristine.addValidator(commentNode, validateCommentInput, ValidationMessages.INVALID_COUNT_SYMBOLS);
-
   pristine.addValidator(hashtagNode, validateHashtagFormatInput, ValidationMessages.INVALID_PATTERN, 2, true);
   pristine.addValidator(hashtagNode, validateHashtagCountInput, ValidationMessages.INVALID_COUNT, 3, true);
   pristine.addValidator(hashtagNode, validateHashtagDublicateInput, ValidationMessages.NOT_UNIQUE, 1, true);
+  pristine.addValidator(hashtagNode, validateHashtagSymbolsInput, ValidationMessages.INVALID_HASHTAG_SYMBOLS, 4, true);
 
   formNode.addEventListener('submit', (evt) => {
     evt.preventDefault();
-
     const isValid = pristine.validate();
     if (isValid) {
       blockFormButton();
@@ -97,7 +104,6 @@ const init = (onSuccess, onDocumentKeydown) => {
         .finally(unblockFormButton);
     }
   });
-
 };
 
 const onInputKeydown = (evt) => {
