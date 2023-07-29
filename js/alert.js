@@ -16,8 +16,8 @@ const onOuterBodyClick = (evt) => {
 };
 
 const Alerts = {
-  success: createAlert('success'),
-  error: createAlert('error')
+  SUCCESS: createAlert('success'),
+  ERROR: createAlert('error')
 };
 
 const openAlert = (type) => {

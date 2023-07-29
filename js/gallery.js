@@ -48,14 +48,26 @@ const getDefaultPictures = (pictures) => {
   renderPictures(pictures);
 };
 
+const onFilterRandomClick = (pictures) => {
+  debounce(getRandomPictures(pictures));
+};
+
+const onFilterDiscussedClick = (pictures) => {
+  debounce(getDiscussedPictures(pictures));
+};
+
+const onFilterDefaultClick = (pictures) => {
+  debounce(getDefaultPictures(pictures));
+};
+
 const renderPicturesGallery = (pictures) => {
 
   filtersNode.classList.remove('img-filters--inactive');
   addActiveClassFilter();
 
-  document.querySelector('#filter-random').addEventListener('click', () => debounce(getRandomPictures(pictures)));
-  document.querySelector('#filter-discussed').addEventListener('click', () => debounce(getDiscussedPictures(pictures)));
-  document.querySelector('#filter-default').addEventListener('click', () => debounce(getDefaultPictures(pictures)));
+  document.querySelector('#filter-random').addEventListener('click', () => onFilterRandomClick(pictures));
+  document.querySelector('#filter-discussed').addEventListener('click', () => onFilterDiscussedClick(pictures));
+  document.querySelector('#filter-default').addEventListener('click', () => onFilterDefaultClick(pictures));
 
   pictureContainerNode.addEventListener('click', (evt) => {
     const picture = evt.target.closest('[data-picture-id]');

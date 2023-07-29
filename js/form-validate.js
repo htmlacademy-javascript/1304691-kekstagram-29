@@ -13,6 +13,11 @@ const ValidationMessages = {
   INVALID_PATTERN: 'Хэш-теги не соответствуют формату'
 };
 
+const FormButtonText = {
+  SENDING: 'Отправка...',
+  SEND: 'Опубликовать'
+};
+
 const formNode = document.querySelector('.img-upload__form');
 const hashtagNode = formNode.querySelector('.text__hashtags');
 const commentNode = formNode.querySelector('.text__description');
@@ -56,15 +61,14 @@ const validateHashtagDublicateInput = () => {
 };
 
 const blockFormButton = () => {
-  formButtonNode.textContent = 'Отправка...';
+  formButtonNode.textContent = FormButtonText['SENDING'];
   formButtonNode.disabled = true;
 };
 
 const unblockFormButton = () => {
-  formButtonNode.textContent = 'Опубликовать';
+  formButtonNode.textContent = FormButtonText['SEND'];
   formButtonNode.disabled = false;
 };
-
 
 const init = (onSuccess) => {
 
