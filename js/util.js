@@ -18,4 +18,17 @@ const createIdGenerator = () => {
   };
 };
 
-export { getRandomInteger, getRandomArrayElement, isEscapeKey, createIdGenerator };
+const openErrorAlert = (message) => {
+  const alertContainerNode = document.createElement('div');
+  document.body.append(alertContainerNode);
+  alertContainerNode.classList.add('error-alert-container');
+
+  const alertNode = document.createElement('div');
+  alertNode.classList.add('error-alert');
+  alertNode.textContent = message;
+  alertContainerNode.append(alertNode);
+
+  setTimeout(() => alertContainerNode.remove(), 5000);
+};
+
+export { getRandomInteger, getRandomArrayElement, isEscapeKey, createIdGenerator, openErrorAlert };

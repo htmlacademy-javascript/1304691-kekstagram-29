@@ -1445,3 +1445,26 @@ main {
 div.img-upload__field-wrapper:nth-child(2) {
   margin-top: 20px;
 }
+
+.error-alert-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color:rgba(0, 0, 0, 0.8);
+}
+
+.error-alert {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  max-width: 40%;
+  font-size: 20px;
+  padding: 40px 60px;
+  color: white;
+  text-transform: none;
+  background-color: palevioletred;
+  transform: translate(-50%, -50%);
+}
+

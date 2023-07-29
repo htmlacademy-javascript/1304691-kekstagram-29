@@ -1,4 +1,6 @@
 import { isEscapeKey } from './util.js';
+import { send as sendData } from './api.js';
+import { openErrorAlert, openSuccessAlert } from './alert.js';
 
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_COMMENT_LENGTH = 140;
@@ -14,6 +16,7 @@ const ValidationMessages = {
 const formNode = document.querySelector('.img-upload__form');
 const hashtagNode = formNode.querySelector('.text__hashtags');
 const commentNode = formNode.querySelector('.text__description');
+const formButtonNode = formNode.querySelector('.img-upload__submit');
 
 const defaultConfig = {
   classTo: 'img-upload__field-wrapper',
@@ -24,7 +27,7 @@ const defaultConfig = {
 
 const pristine = new Pristine(formNode, defaultConfig);
 
-const resetPristine = () => pristine.reset();
+const reset = () => pristine.reset();
 
 const validateCommentInput = (value) => value.length <= MAX_COMMENT_LENGTH;
 
@@ -52,7 +55,18 @@ const validateHashtagDublicateInput = () => {
   return isHashtagsDuplicate.size === hashtags.length;
 };
 
-const initValidateForm = () => {
+const blockFormButton = () => {
+  formButtonNode.textContent = 'Отправка...';
+  formButtonNode.disabled = true;
+};
+
+const unblockFormButton = () => {
+  formButtonNode.textContent = 'Опубликовать';
+  formButtonNode.disabled = false;
+};
+
+
+const init = (onSuccess) => {
 
   pristine.addValidator(commentNode, validateCommentInput, ValidationMessages['INVALID_COUNT_SYMBOLS']);
 
@@ -62,7 +76,21 @@ const initValidateForm = () => {
 
   formNode.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    pristine.validate();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockFormButton();
+
+      sendData(new FormData(evt.target))
+        .then(() => {
+          onSuccess();
+          openSuccessAlert();
+        })
+        .catch(() => {
+          openErrorAlert();
+        })
+        .finally(unblockFormButton);
+    }
   });
 
 };
@@ -76,4 +104,4 @@ const onInputKeydown = (evt) => {
 hashtagNode.addEventListener('keydown', onInputKeydown);
 commentNode.addEventListener('keydown', onInputKeydown);
 
-export { initValidateForm, resetPristine };
+export { init, reset };
