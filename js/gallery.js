@@ -48,17 +48,11 @@ const getDefaultPictures = (pictures) => {
   renderPictures(pictures);
 };
 
-const onFilterRandomClick = (pictures) => {
-  debounce(getRandomPictures(pictures));
-};
+const onFilter = (handler) => (data) => debounce(handler(data));
 
-const onFilterDiscussedClick = (pictures) => {
-  debounce(getDiscussedPictures(pictures));
-};
-
-const onFilterDefaultClick = (pictures) => {
-  debounce(getDefaultPictures(pictures));
-};
+const onFilterRandomClick = (pictures) => onFilter(getRandomPictures(pictures));
+const onFilterDiscussedClick = (pictures) => onFilter(getDiscussedPictures(pictures));
+const onFilterDefaultClick = (pictures) => onFilter(getDefaultPictures(pictures));
 
 const renderPicturesGallery = (pictures) => {
 

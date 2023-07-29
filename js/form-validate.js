@@ -61,22 +61,22 @@ const validateHashtagDublicateInput = () => {
 };
 
 const blockFormButton = () => {
-  formButtonNode.textContent = FormButtonText['SENDING'];
+  formButtonNode.textContent = FormButtonText.SENDING;
   formButtonNode.disabled = true;
 };
 
 const unblockFormButton = () => {
-  formButtonNode.textContent = FormButtonText['SEND'];
+  formButtonNode.textContent = FormButtonText.SEND;
   formButtonNode.disabled = false;
 };
 
 const init = (onSuccess, onDocumentKeydown) => {
 
-  pristine.addValidator(commentNode, validateCommentInput, ValidationMessages['INVALID_COUNT_SYMBOLS']);
+  pristine.addValidator(commentNode, validateCommentInput, ValidationMessages.INVALID_COUNT_SYMBOLS);
 
-  pristine.addValidator(hashtagNode, validateHashtagFormatInput, ValidationMessages['INVALID_PATTERN'], 2, true);
-  pristine.addValidator(hashtagNode, validateHashtagCountInput, ValidationMessages['INVALID_COUNT'], 3, true);
-  pristine.addValidator(hashtagNode, validateHashtagDublicateInput, ValidationMessages['NOT_UNIQUE'], 1, true);
+  pristine.addValidator(hashtagNode, validateHashtagFormatInput, ValidationMessages.INVALID_PATTERN, 2, true);
+  pristine.addValidator(hashtagNode, validateHashtagCountInput, ValidationMessages.INVALID_COUNT, 3, true);
+  pristine.addValidator(hashtagNode, validateHashtagDublicateInput, ValidationMessages.NOT_UNIQUE, 1, true);
 
   formNode.addEventListener('submit', (evt) => {
     evt.preventDefault();
