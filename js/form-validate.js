@@ -70,7 +70,7 @@ const unblockFormButton = () => {
   formButtonNode.disabled = false;
 };
 
-const init = (onSuccess) => {
+const init = (onSuccess, onDocumentKeydown) => {
 
   pristine.addValidator(commentNode, validateCommentInput, ValidationMessages['INVALID_COUNT_SYMBOLS']);
 
@@ -91,7 +91,8 @@ const init = (onSuccess) => {
           openSuccessAlert();
         })
         .catch(() => {
-          openErrorAlert();
+          document.removeEventListener('keydown', onDocumentKeydown);
+          openErrorAlert(onDocumentKeydown);
         })
         .finally(unblockFormButton);
     }
