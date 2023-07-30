@@ -6,7 +6,7 @@ const DEFAULT_SCALE_CONTROL = 100;
 const scaleControlSmallerNode = document.querySelector('.scale__control--smaller');
 const scaleControlBiggerNode = document.querySelector('.scale__control--bigger');
 const scaleControlValueNode = document.querySelector('.scale__control--value');
-const imgUploadPreviewNode = document.querySelector('.img-upload__preview');
+const imgUploadPreviewNode = document.querySelector('.img-upload__preview img');
 
 let styleValue = parseInt(scaleControlValueNode.value, 10);
 

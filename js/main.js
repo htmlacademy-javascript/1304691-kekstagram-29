@@ -6,13 +6,12 @@ import { init as initScaleControl } from './scaler.js';
 import { openErrorAlert } from './util.js';
 import { get as getData} from './api.js';
 
+openUploadForm();
+initScaleControl();
+initSlider();
+
 getData()
   .then((pictures) => {
     renderPicturesGallery(pictures);
   })
   .catch(() => openErrorAlert('Не удалось получить данные с сервера'));
-
-openUploadForm();
-
-initScaleControl();
-initSlider();
