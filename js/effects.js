@@ -1,6 +1,10 @@
 const effectLevelValueNode = document.querySelector('.effect-level__value');
-const imgUploadPreviewNode = document.querySelector('.img-upload__preview');
+const imgUploadPreviewNode = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
+const sliderContainerNode = document.querySelector('.img-upload__effect-level');
+const sliderNode = document.querySelector('.effect-level__slider');
+
+let chosenEffect = 'none';
 
 const configEffects = {
   default: {
@@ -75,10 +79,6 @@ const effectsUnits = {
   heat: '',
 };
 
-let chosenEffect = 'none';
-
-const sliderNode = document.querySelector('.img-upload__effect-level');
-
 const createImageStyle = () => {
   if (chosenEffect === 'none') {
     imgUploadPreviewNode.style.filter = null;
@@ -118,11 +118,11 @@ const createSlider = ({ range, step }) => {
 
 const setSlider = () => {
   destroySlider();
-  sliderNode.classList.add('hidden');
+  sliderContainerNode.classList.add('hidden');
 
   if (chosenEffect !== 'none') {
     createSlider(configEffects[chosenEffect]);
-    sliderNode.classList.remove('hidden');
+    sliderContainerNode.classList.remove('hidden');
   }
 };
 

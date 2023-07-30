@@ -10,6 +10,7 @@ const imgUploadRedactorNode = formNode.querySelector('.img-upload__overlay');
 const imgUploadInputNode = formNode.querySelector('.img-upload__input');
 const imgUploadPreviewNode = formNode.querySelector('.img-upload__preview img');
 const closeFormNode = formNode.querySelector('.img-upload__cancel');
+const effectsListNode = formNode.querySelectorAll('.effects__preview');
 
 const close = () => {
   formNode.reset();
@@ -24,12 +25,18 @@ const close = () => {
 const showSelectImg = () => {
   const file = imgUploadInputNode.files[0];
   const fileName = file.name.toLowerCase();
+  let currentUrl;
 
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
-    imgUploadPreviewNode.src = URL.createObjectURL(file);
+    currentUrl = URL.createObjectURL(file);
+    imgUploadPreviewNode.src = currentUrl;
   }
+
+  effectsListNode.forEach((effect) => {
+    effect.style.backgroundImage = `url(${currentUrl})`;
+  });
 };
 
 const open = () => {
