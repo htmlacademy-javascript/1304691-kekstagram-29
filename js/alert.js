@@ -3,9 +3,9 @@ import { isEscapeKey } from './util.js';
 let activeAlertType = null;
 let onEscapeKeydown = null;
 
-const Alerts = {
-  SUCCESS: createAlert('success'),
-  ERROR: createAlert('error')
+const alerts = {
+  success: createAlert('success'),
+  error: createAlert('error')
 };
 
 const onDocumentKeydown = (evt) => {
@@ -22,14 +22,14 @@ const onOuterBodyClick = (evt) => {
 };
 
 const openAlert = (type) => {
-  activeAlertType = type.toUpperCase();
+  activeAlertType = type;
   document.addEventListener('click', onOuterBodyClick);
   document.addEventListener('keydown', onDocumentKeydown);
-  document.body.append(Alerts[activeAlertType]);
+  document.body.append(alerts[activeAlertType]);
 };
 
 function closeActiveAlert() {
-  Alerts[activeAlertType].remove();
+  alerts[activeAlertType].remove();
   activeAlertType = null;
   document.removeEventListener('click', onOuterBodyClick);
   document.removeEventListener('keydown', onDocumentKeydown);
