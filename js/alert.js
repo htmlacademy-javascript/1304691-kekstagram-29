@@ -36,11 +36,13 @@ function closeActiveAlert() {
   document.addEventListener('keydown', onEscapeKeydown);
 }
 
+const onButtonAlertClick = () => closeActiveAlert();
+
 function createAlert(type) {
   const alertTemplateNode = document.querySelector(`#${type}`).content;
   const alertNode = alertTemplateNode.querySelector(`.${type}`).cloneNode(true);
 
-  alertNode.querySelector(`.${type}__button`).addEventListener('click', closeActiveAlert);
+  alertNode.querySelector(`.${type}__button`).addEventListener('click', onButtonAlertClick);
 
   return alertNode;
 }

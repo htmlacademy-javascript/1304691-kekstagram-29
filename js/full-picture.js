@@ -11,11 +11,11 @@ const commentsShownCountNode = fullPictureNode.querySelector('.shown-comments-co
 const commentsCountNode = fullPictureNode.querySelector('.comments-count');
 
 let commentsShown = 0;
-let commentsArray = [];
+let comments = [];
 
 const getCommentsShown = () => {
   commentsShownCountNode.textContent = commentsShown;
-  commentsCountNode.textContent = commentsArray.length;
+  commentsCountNode.textContent = comments.length;
 };
 
 const renderDataOnfullPicture = ({ url, description, likes }) => {
@@ -38,16 +38,16 @@ const createComment = ({ avatar, name, message }) => {
 const renderComments = () => {
   commentsShown += COMMENTS_PORTION;
 
-  if (commentsShown >= commentsArray.length) {
+  if (commentsShown >= comments.length) {
     commentsLoaderButtonNode.classList.add('hidden');
-    commentsShown = commentsArray.length;
+    commentsShown = comments.length;
   } else {
     commentsLoaderButtonNode.classList.remove('hidden');
   }
 
   const commentFragment = document.createDocumentFragment();
   for (let i = 0; i < commentsShown; i++) {
-    const commentElement = createComment(commentsArray[i]);
+    const commentElement = createComment(comments[i]);
     commentFragment.append(commentElement);
   }
 
@@ -62,9 +62,9 @@ const openFullPicture = (data) => {
   document.addEventListener('keydown', onDocumentKeydown);
 
   renderDataOnfullPicture(data);
-  commentsArray = data.comments;
+  comments = data.comments;
 
-  if (commentsArray.length > 0) {
+  if (comments.length > 0) {
     renderComments();
   } else {
     commentsContainerNode.innerHTML = '';
