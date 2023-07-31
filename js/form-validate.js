@@ -58,6 +58,7 @@ const validateHashtagCountInput = () => {
 
 const validateHashtagSymbolsInput = () => {
   const hashtags = getHashtags();
+
   return hashtags
     .every((hashtag) => hashtag.length <= MAX_HASHTAG_SYMBOLS);
 };
@@ -89,6 +90,7 @@ const init = (onSuccess, onDocumentKeydown) => {
   formNode.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
+
     if (isValid) {
       blockFormButton();
 
@@ -113,6 +115,7 @@ const onInputKeydown = (evt) => {
 };
 
 hashtagNode.addEventListener('keydown', onInputKeydown);
+
 commentNode.addEventListener('keydown', onInputKeydown);
 
 export { init, reset };

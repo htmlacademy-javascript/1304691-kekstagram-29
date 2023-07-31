@@ -4,8 +4,8 @@ let activeAlertType = null;
 let onEscapeKeydown = null;
 
 const Alerts = {
-  success: createAlert('success'),
-  error: createAlert('error')
+  SUCCESS: createAlert('success'),
+  ERROR: createAlert('error')
 };
 
 const onDocumentKeydown = (evt) => {
@@ -22,7 +22,7 @@ const onOuterBodyClick = (evt) => {
 };
 
 const openAlert = (type) => {
-  activeAlertType = type;
+  activeAlertType = type.toUpperCase();
   document.addEventListener('click', onOuterBodyClick);
   document.addEventListener('keydown', onDocumentKeydown);
   document.body.append(Alerts[activeAlertType]);
