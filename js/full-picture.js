@@ -63,6 +63,7 @@ const openFullPicture = (data) => {
 
   renderDataOnfullPicture(data);
   commentsArray = data.comments;
+
   if (commentsArray.length > 0) {
     renderComments();
   } else {
