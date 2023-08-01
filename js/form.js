@@ -45,7 +45,7 @@ const open = () => {
     imgUploadRedactorNode.classList.remove('hidden');
     document.body.classList.add('modal-open');
     document.addEventListener('keydown', onDocumentKeydown);
-    initValidateForm(close, onDocumentKeydown);
+    initValidateForm(close);
   });
 };
 
@@ -62,4 +62,4 @@ function onDocumentKeydown(evt) {
 
 closeFormNode.addEventListener('click', onExitButtonClick);
 
-export { open, close };
+export { open, close, onDocumentKeydown };

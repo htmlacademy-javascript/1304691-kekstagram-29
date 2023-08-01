@@ -15,7 +15,10 @@ const scaleImage = (value) => {
   imgUploadPreviewNode.style.transform = `scale(${value / 100})`;
 };
 
-const reset = () => scaleImage(DEFAULT_SCALE_CONTROL);
+const reset = () => {
+  styleValue = DEFAULT_SCALE_CONTROL;
+  scaleImage(DEFAULT_SCALE_CONTROL);
+};
 
 const onSmallerButtonClick = () => {
   if (styleValue > MIN_SCALE_CONTROL) {

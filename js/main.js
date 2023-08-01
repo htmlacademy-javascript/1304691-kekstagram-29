@@ -1,4 +1,3 @@
-//import { getPictures } from './data.js';
 import { renderPicturesGallery } from './gallery.js';
 import { open as openUploadForm } from './form.js';
 import { init as initSlider } from './effects.js';
