@@ -19,8 +19,9 @@ const getCommentsShown = () => {
 };
 
 const renderDataOnFullPicture = ({ url, description, likes }) => {
-  fullPictureNode.querySelector('.big-picture__img img').src = url;
-  fullPictureNode.querySelector('.big-picture__img img').alt = description;
+  const fullPictureImgNode = fullPictureNode.querySelector('.big-picture__img img');
+  fullPictureImgNode.src = url;
+  fullPictureImgNode.alt = description;
   fullPictureNode.querySelector('.likes-count').textContent = likes;
   fullPictureNode.querySelector('.social__caption').textContent = description;
 };
