@@ -20,6 +20,7 @@ const getCommentsShown = () => {
 
 const renderDataOnFullPicture = ({ url, description, likes }) => {
   const fullPictureImgNode = fullPictureNode.querySelector('.big-picture__img img');
+
   fullPictureImgNode.src = url;
   fullPictureImgNode.alt = description;
   fullPictureNode.querySelector('.likes-count').textContent = likes;
