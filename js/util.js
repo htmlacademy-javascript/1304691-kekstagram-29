@@ -1,3 +1,5 @@
+const DELAY_ALERT_RENDER = 500;
+
 const getRandomInteger = (min, max) => {
   const lower = Math.ceil(Math.min(min, max));
   const upper = Math.floor(Math.max(min, max));
@@ -9,7 +11,7 @@ const getRandomInteger = (min, max) => {
 const createUniqueRandomIdGenerator = (min, max) => {
   const generatedValues = [];
 
-  return function () {
+  return () => {
     let currentValue = getRandomInteger(min, max);
 
     if (generatedValues.length >= (max - min + 1)) {
@@ -37,7 +39,7 @@ const openErrorAlert = (message) => {
   alertNode.textContent = message;
   alertContainerNode.append(alertNode);
 
-  setTimeout(() => alertContainerNode.remove(), 5000);
+  setTimeout(() => alertContainerNode.remove(), DELAY_ALERT_RENDER);
 };
 
 const debounce = (callback, timeoutDelay = 500) => {

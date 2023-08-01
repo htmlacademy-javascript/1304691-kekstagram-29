@@ -18,7 +18,7 @@ const getCommentsShown = () => {
   commentsCountNode.textContent = comments.length;
 };
 
-const renderDataOnfullPicture = ({ url, description, likes }) => {
+const renderDataOnFullPicture = ({ url, description, likes }) => {
   fullPictureNode.querySelector('.big-picture__img img').src = url;
   fullPictureNode.querySelector('.big-picture__img img').alt = description;
   fullPictureNode.querySelector('.likes-count').textContent = likes;
@@ -61,7 +61,7 @@ const openFullPicture = (data) => {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 
-  renderDataOnfullPicture(data);
+  renderDataOnFullPicture(data);
   comments = data.comments;
 
   if (comments.length > 0) {

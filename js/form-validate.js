@@ -80,7 +80,7 @@ const unblockFormButton = () => {
   formButtonNode.disabled = false;
 };
 
-const init = (onSuccess, onDocumentKeydown) => {
+const init = (onSuccess) => {
   pristine.addValidator(commentNode, validateCommentInput, ValidationMessages.INVALID_COUNT_SYMBOLS);
   pristine.addValidator(hashtagNode, validateHashtagFormatInput, ValidationMessages.INVALID_PATTERN, 2, true);
   pristine.addValidator(hashtagNode, validateHashtagCountInput, ValidationMessages.INVALID_COUNT, 3, true);
@@ -100,8 +100,7 @@ const init = (onSuccess, onDocumentKeydown) => {
           openSuccessAlert();
         })
         .catch(() => {
-          document.removeEventListener('keydown', onDocumentKeydown);
-          openErrorAlert(onDocumentKeydown);
+          openErrorAlert();
         })
         .finally(unblockFormButton);
     }

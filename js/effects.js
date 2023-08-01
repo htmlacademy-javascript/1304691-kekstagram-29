@@ -1,6 +1,6 @@
 const effectLevelValueNode = document.querySelector('.effect-level__value');
 const imgUploadPreviewNode = document.querySelector('.img-upload__preview img');
-const effectsList = document.querySelector('.effects__list');
+const effectsListNode = document.querySelector('.effects__list');
 const sliderContainerNode = document.querySelector('.img-upload__effect-level');
 const sliderNode = document.querySelector('.effect-level__slider');
 
@@ -137,7 +137,7 @@ const reset = () => {
 
 const init = () => {
   setSlider();
-  effectsList.addEventListener('change', (evt) => {
+  effectsListNode.addEventListener('change', (evt) => {
     createEffect(evt.target.value);
   });
 };
