@@ -20,6 +20,13 @@ const FormButtonText = {
   SEND: 'Опубликовать'
 };
 
+const PriorityValidationMessages = {
+  NOT_UNIQUE: 1,
+  INVALID_PATTERN: 2,
+  INVALID_COUNT: 3,
+  INVALID_HASHTAG_SYMBOLS: 4
+};
+
 const formNode = document.querySelector('.img-upload__form');
 const hashtagNode = formNode.querySelector('.text__hashtags');
 const commentNode = formNode.querySelector('.text__description');
@@ -82,10 +89,10 @@ const unblockFormButton = () => {
 
 const init = (onSuccess) => {
   pristine.addValidator(commentNode, validateCommentInput, ValidationMessages.INVALID_COUNT_SYMBOLS);
-  pristine.addValidator(hashtagNode, validateHashtagFormatInput, ValidationMessages.INVALID_PATTERN, 2, true);
-  pristine.addValidator(hashtagNode, validateHashtagCountInput, ValidationMessages.INVALID_COUNT, 3, true);
-  pristine.addValidator(hashtagNode, validateHashtagDublicateInput, ValidationMessages.NOT_UNIQUE, 1, true);
-  pristine.addValidator(hashtagNode, validateHashtagSymbolsInput, ValidationMessages.INVALID_HASHTAG_SYMBOLS, 4, true);
+  pristine.addValidator(hashtagNode, validateHashtagFormatInput, ValidationMessages.INVALID_PATTERN, PriorityValidationMessages.INVALID_PATTERN, true);
+  pristine.addValidator(hashtagNode, validateHashtagCountInput, ValidationMessages.INVALID_COUNT, PriorityValidationMessages.INVALID_COUNT, true);
+  pristine.addValidator(hashtagNode, validateHashtagDublicateInput, ValidationMessages.NOT_UNIQUE, PriorityValidationMessages.NOT_UNIQUE, true);
+  pristine.addValidator(hashtagNode, validateHashtagSymbolsInput, ValidationMessages.INVALID_HASHTAG_SYMBOLS, PriorityValidationMessages.INVALID_HASHTAG_SYMBOLS, true);
 
   formNode.addEventListener('submit', (evt) => {
     evt.preventDefault();

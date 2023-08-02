@@ -5,7 +5,7 @@ const COMMENTS_PORTION = 5;
 const fullPictureNode = document.querySelector('.big-picture');
 const closePictureNode = document.querySelector('#picture-cancel');
 const commentsContainerNode = fullPictureNode.querySelector('.social__comments');
-const commentNode = fullPictureNode.querySelector('.social__comment');
+const commentContainerNode = fullPictureNode.querySelector('.social__comment');
 const commentsLoaderButtonNode = fullPictureNode.querySelector('.comments-loader');
 const commentsShownCountNode = fullPictureNode.querySelector('.shown-comments-count');
 const commentsCountNode = fullPictureNode.querySelector('.comments-count');
@@ -28,13 +28,14 @@ const renderDataOnFullPicture = ({ url, description, likes }) => {
 };
 
 const createComment = ({ avatar, name, message }) => {
-  const comment = commentNode.cloneNode(true);
+  const commentNode = commentContainerNode.cloneNode(true);
+  const commentImgNode = commentNode.querySelector('.social__picture');
 
-  comment.querySelector('.social__picture').src = avatar;
-  comment.querySelector('.social__picture').alt = name;
-  comment.querySelector('.social__text').textContent = message;
+  commentImgNode.src = avatar;
+  commentImgNode.alt = name;
+  commentNode.querySelector('.social__text').textContent = message;
 
-  return comment;
+  return commentNode;
 };
 
 const renderComments = () => {
